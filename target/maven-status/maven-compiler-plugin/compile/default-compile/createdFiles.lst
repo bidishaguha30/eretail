@@ -1,0 +1,5 @@
+com\process\eretail\repository\CreateProductRepository.class
+com\process\eretail\repository\ProductInterface.class
+com\process\eretail\EretailApp.class
+com\process\eretail\controller\ProductController.class
+com\process\eretail\model\ProductModel.class
