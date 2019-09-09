@@ -1,13 +1,16 @@
 package com.process.eretail.repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
+import com.process.eretail.model.CartTotalOutputModel;
 import com.process.eretail.model.CartValueDiscountModel;
 import com.process.eretail.model.ProductModel;
+import com.process.eretail.model.ProductQuantity;
 
 @Component
 public class CreateProductRepository {
@@ -57,13 +60,45 @@ public class CreateProductRepository {
 		cartModel.setTotalCartCost(costTotal);
 		return cartModel;
 	}
+
+	public CartTotalOutputModel getTotalCartDiscountValue(List<ProductQuantity> body) {
+	      CartTotalOutputModel cartTotal = new CartTotalOutputModel();
+		  List<String> totalDiscountList = new ArrayList<>();
+		  CartValueDiscountModel cartModel = new CartValueDiscountModel();
+		  HashMap<String,Integer> mapDepartment = new HashMap<>();
+		  Double totalCost = 0.0;
+		  int value = 1;
+		  for(ProductQuantity temp : body) {
+			  cartModel = totalCartValue(temp.getProductId(),temp.getQuantity());
+			  totalDiscountList.addAll(cartModel.getDiscountList());
+			  totalCost = totalCost + cartModel.getTotalCartCost();
+			  if(mapDepartment.containsKey(cartModel.getDepartment())) {
+				  value = mapDepartment.get(cartModel.getDepartment()) + 1;
+			       mapDepartment.put(cartModel.getDepartment(), value);
+			         }
+			  else {
+			       mapDepartment.put(cartModel.getDepartment(), value);
+			       }
+			  	}	  
+		    long deptStatusNumber = getDeptStatusNumber(mapDepartment);
+	  		if(deptStatusNumber > 0) {
+	  		     totalCost = totalCost/10;
+	  		}
+	        if(totalCost>50) {
+	        	  totalCost = totalCost - 5;
+	          }
+			  cartTotal.setCartCost(totalCost);
+			  cartTotal.setDiscountList(totalDiscountList);
+		return cartTotal;
+	}
+
+	private long getDeptStatusNumber(HashMap<String, Integer> mapDepartment) {
+		long deptStatusNo = mapDepartment.entrySet().stream()
+  				.filter(x-> x.getValue() > 5)
+  				.map(x-> x.getValue())
+  				.count();		
+		return deptStatusNo;
+	}
 	
-//	public Double discountCartByDepartment(Double totalCost) {
-//		
-//		
-//		
-//		return totalCost;
-//		
-//	}
 
 }

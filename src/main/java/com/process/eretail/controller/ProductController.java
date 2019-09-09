@@ -115,40 +115,9 @@ public class ProductController {
    
    @PostMapping("/product/cartTotal")
    public CartTotalOutputModel cartTotal(@RequestBody List<ProductQuantity> body) {
-	  List<CartTotalOutputModel> cartList = new ArrayList<CartTotalOutputModel>();
-	  List<String> totalDiscountList = new ArrayList<String>();
-	  CartTotalOutputModel cartTotal = new CartTotalOutputModel();
-	  CartValueDiscountModel cartModel = new CartValueDiscountModel();
-	  HashMap<String,Integer> mapDepartment = new HashMap<>();
-	  Double totalCost = 0.0;
-	  int value = 1;
-	  for(ProductQuantity temp : body) {
-		  cartModel = createProductRepository.totalCartValue(temp.getProductId(),temp.getQuantity());
-		  totalDiscountList.addAll(cartModel.getDiscountList());
-		  totalCost = totalCost + cartModel.getTotalCartCost();
-		  if(mapDepartment.containsKey(cartModel.getDepartment())) {
-			  value = mapDepartment.get(cartModel.getDepartment()) + 1;
-		       mapDepartment.put(cartModel.getDepartment(), value);
-		         }
-		  else {
-		       mapDepartment.put(cartModel.getDepartment(), value);
-		       }
-		  	}
-	  
-          if(totalCost>50) {
-        	  totalCost = totalCost - 5;
-          }
-
-  		long deptStatusNo = mapDepartment.entrySet().stream()
-  				.filter(x-> x.getValue() > 5)
-  				.map(x-> x.getValue())
-  				.count();
-
-  		if(deptStatusNo > 0) {
-  		     totalCost = totalCost/10;
-  		}
-		  cartTotal.setCartCost(totalCost);
-		  cartTotal.setDiscountList(totalDiscountList);
+      CartTotalOutputModel cartTotal = new CartTotalOutputModel();
+      cartTotal = createProductRepository.getTotalCartDiscountValue(body);
+	 
 	   return cartTotal;
    }
    

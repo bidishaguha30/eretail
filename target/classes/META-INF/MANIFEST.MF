@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: eretail
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: I311622
+Implementation-Vendor-Id: com.process
+Build-Jdk: 1.8.0_161
+Implementation-URL: http://maven.apache.org
+Created-By: Maven Integration for Eclipse
+
