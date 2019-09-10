@@ -77,7 +77,7 @@ public class CreateProductRepository {
 			       mapDepartment.put(cartModel.getDepartment(), value);
 			         }
 			  else {
-			       mapDepartment.put(cartModel.getDepartment(), value);
+			       mapDepartment.put(cartModel.getDepartment(), 1);
 			       }
 			  	}	  
 		    long deptStatusNumber = getDeptStatusNumber(mapDepartment);
