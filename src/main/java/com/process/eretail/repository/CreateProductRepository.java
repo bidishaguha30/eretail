@@ -28,6 +28,7 @@ public class CreateProductRepository {
 	    	   prodModel = prod.get();  	   
 	       }
 	       CartValueDiscountModel discountList = discountCart(quant,prodModel.getCost()) ;
+	       discountList.setDepartment(prodModel.getDepartment());
 	       return discountList;		
 	}
 
@@ -52,6 +53,7 @@ public class CreateProductRepository {
 			costTotal = costPer + cost;
 		}
 		else {
+			discountList.add("No Discount");
 			costTotal = cost * quant;
 		}		
 		if(costTotal>50) {
