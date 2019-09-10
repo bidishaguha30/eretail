@@ -2,6 +2,7 @@ package com.process.eretail.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,17 +13,22 @@ import javax.persistence.Table;
 public class ProductModel {
 
 	@Id
-	@GeneratedValue
+	@Column(name="PRODUCT_ID")
 	private int id;
 	
+	@Column(name="PRODUCT_NAME")
 	private String productName;
 	
+	@Column(name="DEPARTMENT")
 	private String department;
 	
+	@Column(name="COMPANY")
 	private String company;
 	
+	@Column(name="LIFECYCLE_START_DATE")
 	private Date lifecycleStartDate;
 	
+	@Column(name="LIFECYCLE_END_DATE")
 	private Date lifecycleEndDate;
 	
 	private boolean active;
