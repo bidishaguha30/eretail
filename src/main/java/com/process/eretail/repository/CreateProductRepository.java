@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.process.eretail.model.CartTotalOutputModel;
@@ -15,7 +16,8 @@ import com.process.eretail.model.ProductQuantity;
 @Component
 public class CreateProductRepository {
 	
-	private ProductInterface productInterface;
+	@Autowired
+	 private ProductInterface productInterface;
 	
 	public CartValueDiscountModel totalCartValue(String id, String quantity){
 	    int productId = Integer.parseInt(id);
